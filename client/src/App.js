@@ -7,7 +7,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       tasks: [],
-      singleTask: {},
+      taskName: "",
     };
   }
   componentDidMount = () => {
@@ -28,13 +28,13 @@ class App extends React.Component {
   submitForm = (e) => {
     e.preventDefault();
 
-    this.setState({ singleTask: { name: this.state.taskName, id: shortid() } });
-    this.addTask(this.state.singleTask);
-    this.socket.emit("addTask", this.state.singleTask);
+    const singleTask = { name: this.state.taskName, id: shortid() };
 
-    this.setState({
-      singleTask: { name: "" },
-    });
+    this.setState(singleTask);
+    this.addTask(singleTask);
+    this.socket.emit("addTask", singleTask);
+
+    this.setState({ taskName: "" });
   };
 
   removeTask = (id) => {
@@ -50,12 +50,6 @@ class App extends React.Component {
   updateTasks = (serverTasks) => {
     this.setState({
       tasks: serverTasks,
-    });
-  };
-
-  generateSingleTask = (e) => {
-    this.setState({
-      singleTask: { name: e.target.value, id: shortid() },
     });
   };
 
@@ -89,8 +83,8 @@ class App extends React.Component {
               type="text"
               placeholder="Type your description"
               id="task-name"
-              value={this.state.singleTask.name}
-              onChange={(e) => this.generateSingleTask(e)}
+              value={this.state.taskName}
+              onChange={(e) => this.setState({ taskName: e.target.value })}
             />
             <button className="btn" type="submit">
               Add
