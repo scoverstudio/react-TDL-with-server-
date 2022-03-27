@@ -30,7 +30,6 @@ class App extends React.Component {
 
     const singleTask = { name: this.state.taskName, id: shortid() };
 
-    this.setState(singleTask);
     this.addTask(singleTask);
     this.socket.emit("addTask", singleTask);
 

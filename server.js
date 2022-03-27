@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("addTask", task);
   });
   socket.on("removeTask", (id) => {
-    tasks.splice(id, 1);
+    tasks.splice(id);
     socket.broadcast.emit("removeTask", id);
   });
 });
