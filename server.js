@@ -36,7 +36,8 @@ io.on("connection", (socket) => {
     tasks.push(task);
     socket.broadcast.emit("addTask", task);
   });
-  socket.on("removeTask", (index, id) => {
+  socket.on("removeTask", (id) => {
+    const index = tasks.findIndex((task) => task.id === id);
     tasks.splice(index, 1);
     socket.broadcast.emit("removeTask", id);
   });

@@ -41,9 +41,9 @@ class App extends React.Component {
     this.setState({ tasks: getUpdatedTasks });
   };
 
-  removeHandler = (index, id) => {
+  removeHandler = (id) => {
     this.removeTask(id);
-    this.socket.emit("removeTask", index, id);
+    this.socket.emit("removeTask", id);
   };
 
   updateTasks = (serverTasks) => {
@@ -62,11 +62,11 @@ class App extends React.Component {
           <h2>Tasks</h2>
 
           <ul className="tasks-section__list" id="tasks-list">
-            {this.state.tasks.map((task, index) => (
+            {this.state.tasks.map((task) => (
               <li key={task.id} className="task">
                 {task.name}
                 <button
-                  onClick={() => this.removeHandler(index, task.id)}
+                  onClick={() => this.removeHandler(task.id)}
                   className="btn btn--red"
                 >
                   Remove
